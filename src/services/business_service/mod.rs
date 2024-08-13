@@ -456,6 +456,8 @@ impl BusinessRequest for BusinessService {
                     .collect();
 
                 reviews.extend(rev.clone());
+                // Debugging: Print the number of reviews before applying find_cutoff
+                println!("Total reviews before cutoff: {}", reviews.len());
                 let result = find_cutoff(total_reviews_google, &rev, stopper.clone());
                 match result.await {
                     Err(e) => {
@@ -469,6 +471,7 @@ impl BusinessRequest for BusinessService {
                             .expect("the review should exist in the main result vector");
 
                         reviews = reviews[..needle].to_vec();
+
                         break;
                     }
                 };
