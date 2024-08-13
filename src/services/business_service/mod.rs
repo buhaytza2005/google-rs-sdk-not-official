@@ -480,13 +480,11 @@ impl BusinessRequest for BusinessService {
                         break;
                     }
                 }
-                next_page_token = resp.get("nextPageToken").cloned();
-            } else {
-                break;
             }
+            next_page_token = resp.get("nextPageToken").cloned();
             if next_page_token.is_none() {
                 break;
-            };
+            }
         }
 
         println!(
