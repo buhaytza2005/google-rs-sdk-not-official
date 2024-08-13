@@ -454,10 +454,12 @@ impl BusinessRequest for BusinessService {
                     .iter()
                     .map(|v| serde_json::from_value(v.clone()).unwrap())
                     .collect();
+                println!("Temporary reviews: {:?}", temporary);
+                println!("Parsed reviews: {:?}", rev);
+                println!("Total reviews before cutoff: {}", reviews.len());
 
                 reviews.extend(rev.clone());
                 // Debugging: Print the number of reviews before applying find_cutoff
-                println!("Total reviews before cutoff: {}", reviews.len());
 
                 let result = find_cutoff(total_reviews_google, &rev, stopper.clone());
                 match result.await {
@@ -472,10 +474,12 @@ impl BusinessRequest for BusinessService {
                             .expect("the review should exist in the main result vector");
 
                         reviews = reviews[..needle].to_vec();
+                        println!("Cutoff position: {}", position);
+                        println!("Reviews after cutoff: {:?}", reviews);
 
                         break;
                     }
-                };
+                }
                 next_page_token = resp.get("nextPageToken").cloned();
             } else {
                 break;
