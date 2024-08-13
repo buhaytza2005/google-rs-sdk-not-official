@@ -454,8 +454,8 @@ impl BusinessRequest for BusinessService {
                     .iter()
                     .map(|v| serde_json::from_value(v.clone()).unwrap())
                     .collect();
-                println!("Temporary reviews: {:?}", temporary);
-                println!("Parsed reviews: {:?}", rev);
+                println!("Temporary reviews: {:?}", temporary.len());
+                println!("Parsed reviews: {:?}", rev.len());
                 println!("Total reviews before cutoff: {}", reviews.len());
 
                 reviews.extend(rev.clone());
