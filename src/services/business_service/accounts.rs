@@ -27,12 +27,12 @@ pub struct PageAdmins {
     #[serde(rename = "storeCode")]
     pub store_code: String,
     pub admin_count: usize,
-    pub admins: Vec<Admin>,
+    pub admins: Option<Vec<Admin>>,
 }
 
 #[derive(Debug, Deserialize, Clone)]
 pub struct Admins {
-    pub admins: Vec<Admin>,
+    pub admins: Option<Vec<Admin>>,
 }
 #[derive(Debug, Default, Serialize, Deserialize, Clone)]
 pub struct Admin {

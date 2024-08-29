@@ -310,13 +310,26 @@ impl BusinessRequest for BusinessService {
         let response = self.request(endpoint).await?;
         let resp: Admins = response.json().await?;
 
-        Ok(PageAdmins {
-            page_name: location.name.clone(),
-            page_title: location.title.clone(),
-            store_code: location.store_code.clone(),
-            admin_count: resp.admins.len(),
-            admins: resp.admins,
-        })
+        match resp.admins {
+            Some(admins) => {
+                return Ok(PageAdmins {
+                    page_name: location.name.clone(),
+                    page_title: location.title.clone(),
+                    store_code: location.store_code.clone(),
+                    admin_count: admins.len(),
+                    admins: Some(admins),
+                })
+            }
+            None => {
+                return Ok(PageAdmins {
+                    page_name: location.name.clone(),
+                    page_title: location.title.clone(),
+                    store_code: location.store_code.clone(),
+                    admin_count: 0,
+                    admins: None,
+                })
+            }
+        }
     }
     /// * `location_name`: "locations/{id}" ex: locations/123123216321
     async fn invite_admin(&mut self, email: String, location_name: String) -> Result<Admin> {
