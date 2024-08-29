@@ -40,6 +40,8 @@ pub struct Admin {
     pub admin: Option<String>,
     pub name: Option<String>,
     pub role: Option<AdminRole>,
+    #[serde(rename = "pendingInvitation")]
+    pub pending_invitation: Option<bool>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
