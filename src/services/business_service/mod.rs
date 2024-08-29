@@ -623,7 +623,7 @@ async fn find_cutoff(
                         .round_subsecs(0),
                     data.last_update
                         .unwrap()
-                        .with_second(0)
+                        .with_second(1)
                         .unwrap()
                         .round_subsecs(0),
                     rev.update_time
@@ -634,7 +634,7 @@ async fn find_cutoff(
                         >= data
                             .last_update
                             .unwrap()
-                            .with_second(0)
+                            .with_second(1)
                             .unwrap()
                             .round_subsecs(0)
                 );
@@ -646,7 +646,7 @@ async fn find_cutoff(
                     >= data
                         .last_update
                         .unwrap()
-                        .with_second(0)
+                        .with_second(1)
                         .unwrap()
                         .round_subsecs(0)
             }) {
