@@ -615,9 +615,11 @@ async fn find_cutoff(
         Some(data) => {
             match google_reviews.iter().position(|rev| {
                 println!(
-                    "comparing {:#?} to {:#?}",
+                    "comparing {:#?} to {:#?} with result {:#?}",
                     rev.update_time.unwrap().round_subsecs(0),
-                    data.last_update.unwrap().round_subsecs(0)
+                    data.last_update.unwrap().round_subsecs(0),
+                    rev.update_time.unwrap().round_subsecs(0)
+                        >= data.last_update.unwrap().round_subsecs(0)
                 );
                 rev.update_time.unwrap().round_subsecs(0)
                     >= data.last_update.unwrap().round_subsecs(0)
