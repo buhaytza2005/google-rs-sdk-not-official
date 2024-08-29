@@ -5,7 +5,7 @@ pub mod reviews;
 
 use accounts::{Accounts, Admin, AdminRole, Admins, PageAdmins};
 use anyhow::{anyhow, Result};
-use chrono::SubsecRound;
+use chrono::{SubsecRound, Timelike};
 use endpoint::EndPoint;
 use futures::stream::{FuturesUnordered, StreamExt};
 use locations::{Location, Locations, UpdateLocation};
@@ -616,13 +616,12 @@ async fn find_cutoff(
             match google_reviews.iter().position(|rev| {
                 println!(
                     "comparing {:#?} to {:#?} with result {:#?}",
-                    rev.update_time.unwrap().round_subsecs(0),
-                    data.last_update.unwrap().round_subsecs(0),
-                    rev.update_time.unwrap().round_subsecs(0)
-                        >= data.last_update.unwrap().round_subsecs(0)
+                    rev.update_time.unwrap().with_second(0),
+                    data.last_update.unwrap().with_second(0),
+                    rev.update_time.unwrap().with_second(0)
+                        >= data.last_update.unwrap().with_second(0)
                 );
-                rev.update_time.unwrap().round_subsecs(0)
-                    >= data.last_update.unwrap().round_subsecs(0)
+                rev.update_time.unwrap().with_second(0) >= data.last_update.unwrap().with_second(0)
             }) {
                 Some(position) => {
                     println!("Is there a position: {}", position);
