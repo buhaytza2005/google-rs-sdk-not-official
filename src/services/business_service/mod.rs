@@ -616,13 +616,13 @@ async fn find_cutoff(
             match google_reviews.iter().position(|rev| {
                 println!(
                     "comparing {:#?} to {:#?} with result {:#?}",
-                    rev.update_time.unwrap().round_subsecs(6),
-                    data.last_update.unwrap().round_subsecs(6),
-                    rev.update_time.unwrap().round_subsecs(6)
-                        >= data.last_update.unwrap().round_subsecs(6)
+                    rev.update_time.unwrap().round_subsecs(0),
+                    data.last_update.unwrap().round_subsecs(0),
+                    rev.update_time.unwrap().round_subsecs(0)
+                        >= data.last_update.unwrap().round_subsecs(0)
                 );
-                rev.update_time.unwrap().round_subsecs(6)
-                    >= data.last_update.unwrap().round_subsecs(6)
+                rev.update_time.unwrap().round_subsecs(0)
+                    >= data.last_update.unwrap().round_subsecs(0)
             }) {
                 Some(position) => {
                     println!("Is there a position: {}", position);
