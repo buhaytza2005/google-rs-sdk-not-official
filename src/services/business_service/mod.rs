@@ -622,7 +622,7 @@ async fn find_cutoff(
                 rev.update_time.unwrap().round_subsecs(0)
                     >= data.last_update.unwrap().round_subsecs(0)
             }) {
-                Some(position) => Ok(position),
+                Some(position) => return Ok(position),
                 None => return Err(anyhow!("could not find the last entry, keep going")),
             }
         }
