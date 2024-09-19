@@ -123,7 +123,7 @@ pub struct TimePeriod {
     pub close_time: Option<TimeOfDay>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, Eq, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, Eq, PartialEq, PartialOrd, Ord)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum DayOfWeek {
     #[serde(rename = "DAY_OF_THE_WEEK_UNSPECIFIED")]
