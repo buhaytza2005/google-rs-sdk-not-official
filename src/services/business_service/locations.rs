@@ -16,6 +16,7 @@ pub struct Location {
     pub regular_hours: Option<BusinessHours>,
     pub metadata: Option<Metadata>,
     pub profile: Option<Profile>,
+    pub place_id: Option<String>,
 }
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 #[serde(rename_all = "camelCase")]
