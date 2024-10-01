@@ -15,13 +15,13 @@ static MY_BUSINESS_SERVICE_SCOPE: &str = "https://www.googleapis.com/auth/plus.b
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    //let _ = fn_get_locations().await?;
+    let _ = fn_get_locations().await?;
     //let locations_with_details = fn_get_locations_details().await?;
     //println!("{:#?}", locations_with_details);
 
     // let _ = fn_update_location().await?;
     //let _ = fn_review_by_location().await?;
-    let _ = get_location_details().await?;
+    //let _ = get_location_details().await?;
 
     Ok(())
 }

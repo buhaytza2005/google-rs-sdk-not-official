@@ -45,7 +45,7 @@ impl EndPoint {
             }
             EndPoint::LocationsEndpoint(account) => {
                 format!(
-                    "/v1/accounts/{}/locations?readMask=name,title,storeCode,metadata",
+                    "/v1/accounts/{}/locations?readMask=name,title,storeCode,metadata&pageSize=100",
                     account
                 )
             }

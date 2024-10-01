@@ -239,7 +239,7 @@ impl BusinessRequest for BusinessService {
                 )
                 .await?;
             let resp: Value = response.json().await?;
-            println!("{:#?}", resp);
+            println!("Retrieved {} locations", locations.locations.len(),);
             let val_pages = &resp.get("locations").unwrap().as_array().unwrap().clone();
             let pages: Vec<Location> = val_pages
                 .iter()
