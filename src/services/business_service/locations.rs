@@ -17,7 +17,22 @@ pub struct Location {
     pub metadata: Option<Metadata>,
     pub profile: Option<Profile>,
     pub place_id: Option<String>,
+    pub categories: Option<Categories>,
 }
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct Categories {
+    pub primary_category: Option<Category>,
+    pub additional_categories: Option<Vec<Category>>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize, Default)]
+#[serde(rename_all = "camelCase")]
+pub struct Category {
+    pub name: String,
+    pub display_name: String,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct UpdateLocation {

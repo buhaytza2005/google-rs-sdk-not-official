@@ -25,6 +25,8 @@ pub enum EndPoint {
     BusinessPlaceActions,
     ///BusinessPlacesApiForLocation(location as "locations/{locationId}")
     BusinessPlaceActionsForLocation(String),
+    ///BusinessPlaceCategoryAPI - to list all categories
+    BusinessPlaceCategory,
 }
 
 pub enum ResourceType {
@@ -45,7 +47,7 @@ impl EndPoint {
             }
             EndPoint::LocationsEndpoint(account) => {
                 format!(
-                    "/v1/accounts/{}/locations?readMask=name,title,storeCode,metadata&pageSize=100",
+                    "/v1/accounts/{}/locations?readMask=name,title,storeCode,metadata,categories&pageSize=100",
                     account
                 )
             }
@@ -67,6 +69,9 @@ impl EndPoint {
             }
             EndPoint::DeleteAdmin(location_id, account_id) => {
                 format!("/v1/{}/admins/{}", location_id, account_id)
+            }
+            EndPoint::BusinessPlaceCategory => {
+                "/v1/categories?regionCode=US&languageCode=en&view=FULL&filter=displayName=Car&pageSize=100".to_string()
             }
         }
     }
@@ -116,6 +121,10 @@ impl EndPoint {
             EndPoint::BusinessPlaceActionsForLocation(_) => {
                 //Ok("https://mybusinessbusinessinformation.googleapis.com".into())
                 Ok("https://mybusinessplaceactions.googleapis.com".into())
+            }
+
+            EndPoint::BusinessPlaceCategory => {
+                Ok("https://mybusinessbusinessinformation.googleapis.com".into())
             }
         }
     }

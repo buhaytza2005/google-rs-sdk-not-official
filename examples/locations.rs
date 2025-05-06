@@ -15,7 +15,7 @@ static MY_BUSINESS_SERVICE_SCOPE: &str = "https://www.googleapis.com/auth/plus.b
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let locations = fn_get_locations().await?;
+    let locations = fn_get_locations_details().await?;
 
     //let locations_with_details = fn_get_locations_details().await?;
     //println!("{:#?}", locations_with_details);
@@ -24,8 +24,24 @@ async fn main() -> Result<()> {
     //let _ = fn_review_by_location().await?;
     //let _ = get_location_details().await?;
     //
-    let wsm = locations.locations.iter().find(|l| l.store_code == "3387");
+    //
+    let to_update = locations
+        .locations
+        .iter()
+        .filter(|l| {
+            l.categories.is_some()
+                && l.categories.clone().unwrap().primary_category.unwrap().name
+                    != "categories/gcid:car_wash"
+        })
+        .collect::<Vec<_>>();
+    let wsm = locations.locations.iter().find(|l| l.store_code == "5331");
+    let updates = locations
+        .locations
+        .iter()
+        .filter(|l| !l.title.contains("Waves Hand Car Wash") || l.title.len() < 17)
+        .collect::<Vec<_>>();
     println!("{:#?}", wsm);
+    println!("{:#?}", updates);
 
     Ok(())
 }
@@ -71,7 +87,7 @@ async fn fn_get_locations() -> Result<Locations> {
 async fn fn_get_locations_details() -> Result<Locations> {
     let access_token = get_token().await;
     let mut business_service = BusinessService::new(&access_token);
-    let mask = vec!["name", "storeCode", "title", "metadata"];
+    let mask = vec!["name", "storeCode", "title", "metadata", "categories"];
 
     let locations = business_service.get_locations_details("-", mask).await?;
 

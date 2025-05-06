@@ -107,6 +107,7 @@ pub trait BusinessRequest {
     ) -> impl std::future::Future<Output = Result<Response>> + Send;
     async fn get_place_actions(&mut self) -> Result<()>;
     async fn get_location_place_actions(&mut self, location: String) -> Result<()>;
+    async fn get_categories(&mut self) -> Result<()>;
 }
 
 impl BusinessService {
@@ -187,6 +188,8 @@ impl BusinessRequest for BusinessService {
             .send()
             .await
             .expect("Error with patch request");
+
+        println!("all good here?");
 
         Ok(res)
     }
@@ -613,6 +616,20 @@ impl BusinessRequest for BusinessService {
         let resp = self.request(endpoint).await?;
         if resp.status().is_success() {
             println!("{:#?}", resp.json::<serde_json::Value>().await?);
+        }
+        Ok(())
+    }
+
+    async fn get_categories(&mut self) -> Result<()> {
+        let endpoint = EndPoint::BusinessPlaceCategory;
+        let resp = self.request(endpoint).await?;
+        if resp.status().is_success() {
+            println!("{:#?}", resp.json::<serde_json::Value>().await?);
+        } else {
+            println!(
+                "Request was not successful, {:#?}",
+                resp.json::<serde_json::Value>().await?
+            );
         }
         Ok(())
     }
