@@ -551,11 +551,22 @@ impl BusinessRequest for BusinessService {
             .update_request(endpoint, &pay, update_mask)
             .await
             .expect("Should update");
+        let res_body = res.text().await.expect("Failed to get response text");
 
-        println!("{:#?}", res.json());
-
-        let resp: Location = res.json().await?;
-        println!("{:#?}", resp);
+        match serde_json::from_str::<Option<Location>>(&res_body) {
+            Ok(Some(location)) => {
+                println!("{:#?}", location);
+            }
+            Ok(None) => {
+                println!("Received None response");
+            }
+            Err(e) => {
+                println!(
+                    "Failed to parse response: {}\nResponse body: {}",
+                    e, res_body
+                );
+            }
+        }
 
         Ok(())
     }
