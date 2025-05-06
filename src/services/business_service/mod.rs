@@ -552,6 +552,8 @@ impl BusinessRequest for BusinessService {
             .await
             .expect("Should update");
 
+        println!("{:#?}", res.json());
+
         let resp: Location = res.json().await?;
         println!("{:#?}", resp);
 
