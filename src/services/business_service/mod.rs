@@ -546,6 +546,7 @@ impl BusinessRequest for BusinessService {
 
         let mut pay = UpdateLocation::default();
         pay.open_info = location.open_info.clone();
+        pay.title = Some(location.title.clone());
 
         let res = self
             .update_request(endpoint, &pay, update_mask)
